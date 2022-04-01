@@ -9,6 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -70,10 +73,13 @@ public class Task1 {
 //        enter a number between 50 and 100 digit in the input (square root of which doesn't have a remainder, e.g. 2 is square root of 4),
 //        then and press submit and check that correct no error is seen and check that square root is calculated correctly
         float number=81;
+        double numberSqr = Math.sqrt(number);
+        DecimalFormat df = new DecimalFormat("#.00", DecimalFormatSymbols.getInstance(Locale.US)); // IT WORKS!!! :))))
+
         driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
         driver.findElement(By.tagName("button")).click();
         Alert alert = driver.switchTo().alert();
-        assertEquals("Square root of " + number + " is 9.00", alert.getText());// Math.sqrt(number)
+        assertEquals("Square root of " + number + " is " +df.format(numberSqr), alert.getText());// Math.sqrt(number)
 //        assertEquals("Square root of " + number + " is " +Math.sqrt(number)", alert.getText());// Math.sqrt(number) is no good, as it shows only one decimal digit :(
         alert.accept();
         assertEquals("", driver.findElement(By.id("ch1_error")).getText());
@@ -85,14 +91,17 @@ public class Task1 {
 //        enter a number between 50 and 100 digit in the input (square root of which doesn't have a remainder, e.g. 1.732.. is square root of 3) and press submit,
 //        then check that correct no error is seen and check that square root is calculated correctly
         float number=80;
-//        double b = Math.sqrt(number);
-//        double roundedB = Math.round(number);
+
+        // Make square root to number with two decimals and with COMMA!!!
+        double b = Math.sqrt(number);
+        DecimalFormat df = new DecimalFormat("#.00", DecimalFormatSymbols.getInstance(Locale.US));
+
+
         driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
         driver.findElement(By.tagName("button")).click();
         Alert alert = driver.switchTo().alert();
-        assertEquals("Square root of " + number + " is " + 8.94 + "", alert.getText());
+        assertEquals("Square root of " + number + " is " + df.format(b) + "", alert.getText());
         alert.accept();
         assertEquals("", driver.findElement(By.id("ch1_error")).getText());
-
     }
 }
