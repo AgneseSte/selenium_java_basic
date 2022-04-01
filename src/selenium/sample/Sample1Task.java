@@ -12,6 +12,15 @@ public class Sample1Task {
 
     @Test
     public void goToHomepage() throws Exception {
+        //show where the driver is
+        System.setProperty("webdriver.chrome.driver","F:\\Accenture Bootcamp\\selenium_java_basic\\lib\\chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://kristinek.github.io/site/index2.html");
+        System.out.println(" Title: " + driver.getTitle());
+        System.out.println("URL: " + driver.getCurrentUrl());
+        Thread.sleep(5000);
+        driver.quit();
 //        TODO:
 //         define driver
 //         go to https://kristinek.github.io/site/index2.html

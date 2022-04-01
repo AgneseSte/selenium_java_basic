@@ -3,10 +3,14 @@ package selenium.tasks;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+
+import static org.junit.Assert.*;
 
 public class Task1 {
     WebDriver driver;
@@ -26,30 +30,53 @@ public class Task1 {
     }
 
     @Test
-    public void errorOnText() {
+    public void errorOnText() throws Exception{
 //        TODO
 //        enter a text instead of a number, check that correct error is seen
+        String text = "Some text";
+        driver.findElement(By.id("numb")).sendKeys(text);
+        driver.findElement(By.tagName("button")).click();
+        assertEquals("Please enter a number", driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test
-    public void errorOnNumberTooSmall() {
+    public void errorOnNumberTooSmall() throws Exception{
 //        TODO
 //        enter number which is too small (below 50), check that correct error is seen
+        int number = 42;
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
+        driver.findElement(By.tagName("button")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Sorry you have asked the wrong answer", alert.getText());
+        alert.accept();
     }
 
     @Test
-    public void errorOnNumberTooBig() {
+    public void errorOnNumberTooBig() throws Exception{
 
 //        BUG: if I enter number 666 no errors where seen
 //        TODO
 //        enter number which is too big (above 100), check that correct error is seen
+
+        int number = 150;
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
+        driver.findElement(By.tagName("button")).click();
+        assertEquals("Number is too big", driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test
-    public void correctSquareRootWithoutRemainder() {
+    public void correctSquareRootWithoutRemainder() throws Exception{
 //        TODO
 //        enter a number between 50 and 100 digit in the input (square root of which doesn't have a remainder, e.g. 2 is square root of 4),
 //        then and press submit and check that correct no error is seen and check that square root is calculated correctly
+        float number=81;
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
+        driver.findElement(By.tagName("button")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Square root of " + number + " is 9.00", alert.getText());// Math.sqrt(number)
+//        assertEquals("Square root of " + number + " is " +Math.sqrt(number)", alert.getText());// Math.sqrt(number) is no good, as it shows only one decimal digit :(
+        alert.accept();
+        assertEquals("", driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test
@@ -57,5 +84,15 @@ public class Task1 {
 //        TODO
 //        enter a number between 50 and 100 digit in the input (square root of which doesn't have a remainder, e.g. 1.732.. is square root of 3) and press submit,
 //        then check that correct no error is seen and check that square root is calculated correctly
+        float number=80;
+//        double b = Math.sqrt(number);
+//        double roundedB = Math.round(number);
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
+        driver.findElement(By.tagName("button")).click();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Square root of " + number + " is " + 8.94 + "", alert.getText());
+        alert.accept();
+        assertEquals("", driver.findElement(By.id("ch1_error")).getText());
+
     }
 }
