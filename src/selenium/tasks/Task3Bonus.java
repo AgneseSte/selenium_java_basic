@@ -3,10 +3,15 @@ package selenium.tasks;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
+import java.util.List;
+import static org.junit.Assert.*;
 
 //import pages.FormPage;
 //import pages.ListPage;
@@ -26,7 +31,7 @@ public class Task3Bonus {
         String libWithDriversLocation = System.getProperty("user.dir") + File.separator + "lib" + File.separator;
         System.setProperty("webdriver.chrome.driver", libWithDriversLocation + "chromedriver" + new selenium.ChangeToFileExtension().extension());
         driver = new ChromeDriver();
-        driver.get("https://kristinek.github.io/sitetasks/list_of_people");
+        driver.get("https://kristinek.github.io/site/tasks/list_of_people");
     }
 
     @After
@@ -43,6 +48,23 @@ public class Task3Bonus {
          * add a person via "Add person button"
          * check the list again, that non of the people where changes, but an additional one with correct name/job was added
          */
+        List<WebElement> names = driver.findElements(By.className("name"));
+        List<WebElement> jobs = driver.findElements(By.className("job"));
+driver.findElement(By.id("addPersonBtn")).click();
+driver.findElement(By.id("name")).sendKeys("Arthur");
+        driver.findElement(By.id("surname")).sendKeys("Dent");
+        driver.findElement(By.id("job")).sendKeys("Hitchhiker");
+        driver.findElement(By.id("name")).sendKeys("Arthur");
+        driver.findElement(By.id("dob")).sendKeys("10/10/2010");
+        assertTrue(driver.findElement(By.id("english")).isSelected());
+        driver.findElement(By.id("french")).click();
+        driver.findElement(By.id("male")).click();
+        Select dropdown = new Select(driver.findElement(By.id("status")));
+        assertEquals("Employee", dropdown.getFirstSelectedOption().getText());
+        dropdown.selectByVisibleText("Intern");
+        driver.findElement(By.id("modal_button")).click();
+        List<WebElement> names2 = driver.findElements(By.className("name"));
+        List<WebElement> jobs2 = driver.findElements(By.className("job"));
     }
 
     @Test
