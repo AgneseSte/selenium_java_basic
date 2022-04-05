@@ -48,23 +48,23 @@ public class Task3Bonus {
          * add a person via "Add person button"
          * check the list again, that non of the people where changes, but an additional one with correct name/job was added
          */
-        List<WebElement> names = driver.findElements(By.className("name"));
-        List<WebElement> jobs = driver.findElements(By.className("job"));
-driver.findElement(By.id("addPersonBtn")).click();
-driver.findElement(By.id("name")).sendKeys("Arthur");
-        driver.findElement(By.id("surname")).sendKeys("Dent");
-        driver.findElement(By.id("job")).sendKeys("Hitchhiker");
-        driver.findElement(By.id("name")).sendKeys("Arthur");
-        driver.findElement(By.id("dob")).sendKeys("10/10/2010");
-        assertTrue(driver.findElement(By.id("english")).isSelected());
-        driver.findElement(By.id("french")).click();
-        driver.findElement(By.id("male")).click();
-        Select dropdown = new Select(driver.findElement(By.id("status")));
-        assertEquals("Employee", dropdown.getFirstSelectedOption().getText());
-        dropdown.selectByVisibleText("Intern");
-        driver.findElement(By.id("modal_button")).click();
-        List<WebElement> names2 = driver.findElements(By.className("name"));
-        List<WebElement> jobs2 = driver.findElements(By.className("job"));
+//        List<WebElement> names = driver.findElements(By.className("name"));
+//        List<WebElement> jobs = driver.findElements(By.className("job"));
+//driver.findElement(By.id("addPersonBtn")).click();
+//driver.findElement(By.id("name")).sendKeys("Arthur");
+//        driver.findElement(By.id("surname")).sendKeys("Dent");
+//        driver.findElement(By.id("job")).sendKeys("Hitchhiker");
+//        driver.findElement(By.id("name")).sendKeys("Arthur");
+//        driver.findElement(By.id("dob")).sendKeys("10/10/2010");
+//        assertTrue(driver.findElement(By.id("english")).isSelected());
+//        driver.findElement(By.id("french")).click();
+//        driver.findElement(By.id("male")).click();
+//        Select dropdown = new Select(driver.findElement(By.id("status")));
+//        assertEquals("Employee", dropdown.getFirstSelectedOption().getText());
+//        dropdown.selectByVisibleText("Intern");
+//        driver.findElement(By.id("modal_button")).click();
+//        List<WebElement> names2 = driver.findElements(By.className("name"));
+//        List<WebElement> jobs2 = driver.findElements(By.className("job"));
     }
 
     @Test
